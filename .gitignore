@@ -5,10 +5,20 @@ backend/node_modules/
 
 # ── Environment files (never commit real secrets) ─────────────────────────────
 .env
-frontend/.env
-backend/.env
 .env.local
 .env.*.local
+*.env
+*.env.example
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+frontend/*.env
+frontend/*.env.example
+backend/.env
+backend/.env.local
+backend/.env.*.local
+backend/*.env
+backend/*.env.example
 
 # ── Vite build output ─────────────────────────────────────────────────────────
 frontend/dist/
