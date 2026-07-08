@@ -1,0 +1,162 @@
+/* =============================================================================
+   CandidateDirectory.css
+   Visual reference: 1980s government security clearance badge printer
+   Palette:
+     #E8E8E8  badge card face
+     #1A1A2E  deep navy ink
+     #C8102E  clearance stripe red
+     #4A90D9  security blue
+     #F0F0F0  background (paper tray)
+     #5C5C5C  secondary ink
+============================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --card: #e8e8e8;
+  --ink: #1a1a2e;
+  --red: #c8102e;
+  --blue: #4a90d9;
+  --bg: #f0f0f0;
+  --ink2: #5c5c5c;
+  --mono: "Share Tech Mono", "Courier New", Courier, monospace;
+  --stripe-h: 10px;
+  --card-radius: 4px;
+  --transition: 120ms ease;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.directory { max-width: 1200px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+/* Header */
+.directory__header { border-bottom: 2px solid var(--ink); margin-bottom: 1.5rem; }
+.directory__header-stripe {
+  height: var(--stripe-h);
+  background: repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 18px,var(--ink) 18px,var(--ink) 20px);
+}
+.directory__header-body { padding: 1rem 0 0.75rem; display: flex; flex-direction: column; gap: 0.2rem; }
+.directory__badge-label { font-size: 10px; letter-spacing: 0.2em; color: var(--ink2); text-transform: uppercase; }
+.directory__title { font-size: clamp(1.1rem,3vw,1.6rem); font-weight: normal; letter-spacing: 0.12em; }
+.directory__subtitle { font-size: 10px; letter-spacing: 0.15em; color: var(--red); }
+
+/* Filters */
+.directory__filters {
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end;
+  margin-bottom: 1.75rem; padding: 1rem;
+  background: var(--card); border: 1px solid var(--ink); border-left: 4px solid var(--blue);
+}
+.filter-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.filter-label { font-size: 10px; letter-spacing: 0.18em; color: var(--ink2); }
+.filter-select {
+  font-family: var(--mono); font-size: 12px;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--ink);
+  padding: 0.35rem 1.6rem 0.35rem 0.6rem; cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231A1A2E'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.5rem center;
+  min-width: 160px; transition: border-color var(--transition);
+}
+.filter-select:focus { outline: 2px solid var(--blue); outline-offset: 2px; border-color: var(--blue); }
+.filter-reset {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+  background: transparent; color: var(--red); border: 1px solid var(--red);
+  padding: 0.35rem 0.75rem; cursor: pointer; align-self: flex-end;
+  transition: background var(--transition), color var(--transition);
+}
+.filter-reset:hover,.filter-reset:focus { background: var(--red); color: #fff; outline: 2px solid var(--red); outline-offset: 2px; }
+
+/* States */
+.directory__state {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 1.5rem 1rem; font-size: 12px; letter-spacing: 0.12em;
+  color: var(--ink2); border: 1px dashed var(--ink2); margin-bottom: 1.5rem;
+}
+.directory__state--error { color: var(--red); border-color: var(--red); }
+.state-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ink2); flex-shrink: 0; }
+.state-dot--blink { background: var(--blue); animation: blink 1s step-start infinite; }
+.state-dot--error { background: var(--red); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Grid */
+.directory__grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 1.25rem; }
+
+/* Badge card */
+.badge {
+  background: var(--card); border: 1px solid #c0c0c0; border-radius: var(--card-radius);
+  overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 1px 1px 0 #b0b0b0, 2px 2px 0 #a0a0a0;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.badge:hover { transform: translateY(-2px); box-shadow: 1px 3px 0 #b0b0b0, 2px 5px 0 #a0a0a0; }
+.badge:focus-within { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* Clearance stripes */
+.badge__stripe                        { height: var(--stripe-h); background: var(--red); }
+.badge__stripe--web-development       { background: #2e7d32; }
+.badge__stripe--security-ops          { background: var(--red); }
+.badge__stripe--data---analytics      { background: #6a1b9a; }
+.badge__stripe--design                { background: #e65100; }
+.badge__stripe--product               { background: #0277bd; }
+.badge__stripe--software-engineering  { background: #00695c; }
+.badge__stripe--devops                { background: #4527a0; }
+
+/* Badge body */
+.badge__body { display: flex; gap: 0.75rem; padding: 0.85rem 0.85rem 0.6rem; flex: 1; }
+.badge__photo {
+  width: 56px; height: 68px; flex-shrink: 0;
+  background: repeating-linear-gradient(45deg,#d0d0d0 0px,#d0d0d0 1px,transparent 1px,transparent 4px),#e0e0e0;
+  border: 1px solid #b0b0b0; display: flex; align-items: center; justify-content: center; border-radius: 2px;
+}
+.badge__photo-initials { font-size: 18px; font-weight: bold; color: var(--ink); letter-spacing: 0.05em; background: rgba(232,232,232,0.7); padding: 0 3px; }
+.badge__info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+.badge__field-label { font-size: 9px; letter-spacing: 0.2em; color: var(--ink2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge__name { font-size: 14px; font-weight: normal; letter-spacing: 0.08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge__role { font-size: 11px; color: var(--ink2); margin-bottom: 0.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge__meta { display: flex; flex-direction: column; gap: 0.25rem; margin-top: auto; }
+.badge__meta-row { display: flex; gap: 0.5rem; align-items: center; font-size: 10px; }
+.badge__meta-row dt { color: var(--ink2); letter-spacing: 0.12em; min-width: 46px; flex-shrink: 0; }
+
+/* Rating dots */
+.rating-dots { display: inline-flex; gap: 3px; align-items: center; }
+.dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--ink); }
+.dot--filled { background: var(--ink); }
+.dot--empty  { background: transparent; }
+
+/* Status pill */
+.status-pill { display: inline-block; font-size: 9px; letter-spacing: 0.12em; padding: 1px 5px; border: 1px solid currentColor; border-radius: 2px; white-space: nowrap; }
+.status--not-started { color: var(--ink2); }
+.status--in-progress { color: var(--blue); }
+.status--blocked     { color: var(--red); }
+.status--complete    { color: #2e7d32; }
+
+/* Barcode strip */
+.badge__barcode { border-top: 1px solid #c8c8c8; padding: 0.3rem 0.85rem; background: var(--bg); display: flex; align-items: center; gap: 0.5rem; overflow: hidden; }
+.badge__barcode::before {
+  content: ""; display: block; width: 60px; height: 16px; flex-shrink: 0;
+  background: repeating-linear-gradient(90deg,var(--ink) 0px,var(--ink) 1px,transparent 1px,transparent 3px,var(--ink) 3px,var(--ink) 4px,transparent 4px,transparent 7px);
+  opacity: 0.6;
+}
+.badge__barcode-value { font-size: 8px; color: var(--ink2); letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.7; }
+
+/* Footer */
+.directory__footer { margin-top: 2.5rem; padding-top: 0.75rem; border-top: 1px solid var(--ink); font-size: 9px; letter-spacing: 0.2em; color: var(--ink2); text-align: center; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .directory__grid { grid-template-columns: 1fr; }
+  .directory__filters { flex-direction: column; align-items: stretch; }
+  .filter-select { min-width: unset; width: 100%; }
+  .filter-reset { align-self: flex-start; }
+  .badge__body { flex-direction: column; }
+  .badge__photo { width: 100%; height: 48px; }
+}
